@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-27T00:00:00+07:00",
+  "title": "Design System: NotchChat",
+  "extensions": {
+    "colorMeta": {
+      "telegram-blue": { "role": "primary", "displayName": "Telegram Signal Blue", "canonical": "#2EA3F0", "tonalRamp": ["#062538", "#0B3B59", "#10547D", "#176FA4", "#208ACB", "#2EA3F0", "#7CC8F7", "#D9F0FD"] },
+      "panel-tint": { "role": "neutral", "displayName": "Cool Obsidian Tint", "canonical": "rgba(9, 12, 17, 0.48)", "tonalRamp": ["#090C11", "#171C25", "#2B3340", "#46505F", "#697483", "#929BA6", "#C3C8CE", "#F1F3F5"] },
+      "text-primary": { "role": "neutral", "displayName": "Frosted White", "canonical": "rgba(255, 255, 255, 0.96)" },
+      "text-secondary": { "role": "neutral", "displayName": "Mist White", "canonical": "rgba(255, 255, 255, 0.62)" },
+      "surface-raised": { "role": "neutral", "displayName": "Raised Frost", "canonical": "rgba(255, 255, 255, 0.095)" },
+      "separator": { "role": "neutral", "displayName": "Hairline Frost", "canonical": "rgba(255, 255, 255, 0.13)" },
+      "glass-edge": { "role": "neutral", "displayName": "Glass Edge", "canonical": "rgba(255, 255, 255, 0.20)" },
+      "glass-highlight": { "role": "neutral", "displayName": "Top Glint", "canonical": "rgba(255, 255, 255, 0.08)" }
+    },
+    "typographyMeta": {
+      "headline": { "displayName": "Authentication Headline", "purpose": "Major authentication-step titles only." },
+      "title": { "displayName": "Rounded Title", "purpose": "Panel titles and compact primary actions." },
+      "body": { "displayName": "Compact Body", "purpose": "Messages, previews, instructions, search, and composer text." },
+      "label": { "displayName": "Micro Label", "purpose": "Sender names, links, and supporting status." }
+    },
+    "shadows": [
+      { "name": "expanded-ambient", "value": "0 12px 48px rgba(0, 0, 0, 0.32)", "purpose": "Separates the expanded glass panel from the current workspace." },
+      { "name": "compact-ambient", "value": "0 12px 48px rgba(0, 0, 0, 0.16)", "purpose": "Keeps the collapsed notch quiet and hardware-like." },
+      { "name": "online-pinpoint", "value": "0 1px 8px rgba(52, 199, 89, 0.50)", "purpose": "Communicates online state without decorative glow." }
+    ],
+    "motion": [
+      { "name": "panel-expand", "value": "340ms cubic-bezier(0.2, 0.85, 0.25, 1)", "purpose": "Grows the panel downward from the display edge with almost no bounce." },
+      { "name": "panel-collapse", "value": "260ms cubic-bezier(0.2, 0.85, 0.25, 1)", "purpose": "Returns the panel promptly to its hardware-like state." },
+      { "name": "hover-dismissal-grace", "value": "280ms delay", "purpose": "Tolerates small pointer slips after leaving the expanded panel." },
+      { "name": "message-reveal", "value": "200ms ease-out", "purpose": "Scrolls newly appended messages into view quietly." }
+    ],
+    "breakpoints": []
+  },
+  "components": [
+    {
+      "name": "Expanded Notch Panel",
+      "kind": "custom",
+      "refersTo": "panel-expanded",
+      "description": "The narrow, screen-edge working surface rendered as cool native glass.",
+      "html": "<section class=\"ds-notch-panel\"><header class=\"ds-notch-header\"><span class=\"ds-status\"></span><strong>Messages</strong><button aria-label=\"Collapse\">⌃</button></header><div class=\"ds-notch-content\">Conversation surface</div></section>",
+      "css": ".ds-notch-panel { width:310px; height:340px; overflow:hidden; color:rgba(255,255,255,.96); background:linear-gradient(rgba(255,255,255,.08),transparent 88px),rgba(9,12,17,.78); border:.75px solid rgba(255,255,255,.20); border-top:0; border-radius:0 0 24px 24px; box-shadow:0 12px 48px rgba(0,0,0,.32); backdrop-filter:blur(28px) saturate(150%); font:11px system-ui,sans-serif; } .ds-notch-header { height:36px; padding:0 8px; display:flex; align-items:center; gap:6px; border-bottom:.5px solid rgba(255,255,255,.13); } .ds-notch-header strong { font-family:ui-rounded,system-ui,sans-serif; font-size:12px; } .ds-notch-header button { margin-left:auto; width:24px; height:24px; border:0; border-radius:50%; color:rgba(255,255,255,.62); background:transparent; } .ds-notch-header button:hover,.ds-notch-header button:focus-visible { color:rgba(255,255,255,.96); background:rgba(255,255,255,.095); outline:none; } .ds-status { width:7px; height:7px; border-radius:50%; background:#34c759; box-shadow:0 1px 8px rgba(52,199,89,.5); } .ds-notch-content { padding:8px; color:rgba(255,255,255,.62); }"
+    },
+    {
+      "name": "Collapsed Unread Signal",
+      "kind": "custom",
+      "refersTo": "panel-compact",
+      "description": "A privacy-preserving hardware-like strip that shows no more than three unread dots.",
+      "html": "<div class=\"ds-unread-signal\" aria-label=\"Unread messages\"><i></i><i></i><i></i></div>",
+      "css": ".ds-unread-signal { width:148px; height:12px; display:flex; align-items:center; justify-content:center; gap:4px; border:.75px solid rgba(255,255,255,.20); border-top:0; border-radius:0 0 15px 15px; background:rgba(9,12,17,.78); box-shadow:0 12px 48px rgba(0,0,0,.16); backdrop-filter:blur(28px) saturate(150%); } .ds-unread-signal i { width:3px; height:3px; border-radius:50%; background:rgba(46,163,240,.88); }"
+    },
+    {
+      "name": "Conversation Row",
+      "kind": "nav",
+      "description": "A dense name-and-preview row with no avatar or metadata furniture.",
+      "html": "<button class=\"ds-chat-row\"><strong>Ada</strong><span>Can you review the latest build?</span></button>",
+      "css": ".ds-chat-row { width:302px; height:34px; padding:0 6px; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; gap:1px; border:0; border-radius:12px; color:rgba(255,255,255,.96); background:transparent; font-family:system-ui,sans-serif; text-align:left; } .ds-chat-row strong { font-size:11px; line-height:1.2; } .ds-chat-row span { max-width:100%; overflow:hidden; color:rgba(255,255,255,.62); font-size:10px; text-overflow:ellipsis; white-space:nowrap; } .ds-chat-row:hover,.ds-chat-row:focus-visible,.ds-chat-row:active { background:rgba(255,255,255,.095); outline:none; }"
+    },
+    {
+      "name": "Compact Search",
+      "kind": "input",
+      "refersTo": "input-compact",
+      "description": "A thin-material search control for filtering conversation names and previews.",
+      "html": "<label class=\"ds-search\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"7\"></circle><path d=\"m20 20-4-4\"></path></svg><input placeholder=\"Search conversations\"></label>",
+      "css": ".ds-search { width:298px; height:28px; padding:0 8px; display:flex; align-items:center; gap:6px; border:.5px solid rgba(255,255,255,.13); border-radius:8px; color:rgba(255,255,255,.62); background:rgba(255,255,255,.07); backdrop-filter:blur(16px); } .ds-search svg { width:10px; height:10px; fill:none; stroke:currentColor; stroke-width:2; } .ds-search input { min-width:0; flex:1; border:0; outline:0; color:rgba(255,255,255,.96); background:transparent; font:11px system-ui,sans-serif; } .ds-search:focus-within { border-color:rgba(46,163,240,.65); }"
+    },
+    {
+      "name": "Outgoing Message",
+      "kind": "card",
+      "refersTo": "message-outgoing",
+      "description": "The sole solid-blue content surface, limited to sender plus text.",
+      "html": "<article class=\"ds-message-outgoing\"><strong>You</strong><p>Looks good. I’ll send the update.</p></article>",
+      "css": ".ds-message-outgoing { width:fit-content; max-width:246px; padding:5px 7px; border-radius:10px; color:rgba(0,0,0,.88); background:#2EA3F0; font-family:system-ui,sans-serif; } .ds-message-outgoing strong { display:block; margin-bottom:2px; color:rgba(0,0,0,.62); font-size:9px; } .ds-message-outgoing p { margin:0; font-size:11px; line-height:1.3; }"
+    },
+    {
+      "name": "Incoming Message",
+      "kind": "card",
+      "refersTo": "message-incoming",
+      "description": "A translucent incoming bubble whose blue sender label carries identity.",
+      "html": "<article class=\"ds-message-incoming\"><strong>Ada</strong><p>Can you review the latest build?</p></article>",
+      "css": ".ds-message-incoming { width:fit-content; max-width:246px; padding:5px 7px; border:.5px solid rgba(255,255,255,.13); border-radius:10px; color:rgba(255,255,255,.96); background:rgba(255,255,255,.07); backdrop-filter:blur(16px); font-family:system-ui,sans-serif; } .ds-message-incoming strong { display:block; margin-bottom:2px; color:#2EA3F0; font-size:9px; } .ds-message-incoming p { margin:0; font-size:11px; line-height:1.3; }"
+    },
+    {
+      "name": "Primary Authentication Action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The full-width blue action used only for authentication progression.",
+      "html": "<button class=\"ds-button-primary\">Continue</button>",
+      "css": ".ds-button-primary { width:274px; height:36px; border:0; border-radius:12px; color:#000; background:#2EA3F0; font:700 12px system-ui,sans-serif; transition:filter 120ms ease,transform 120ms ease; } .ds-button-primary:hover { filter:brightness(1.08); } .ds-button-primary:focus-visible { outline:2px solid rgba(255,255,255,.82); outline-offset:2px; } .ds-button-primary:active { transform:scale(.985); } .ds-button-primary:disabled { opacity:.45; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Living Notch",
+    "overview": "NotchChat should feel like the physical display cutout has quietly gained a useful second state. Its visual world is native macOS glass cooled by a near-black wash, defined by one fine highlight edge, and animated as a single object growing down from the screen boundary. It is compact, technical, and calm—not a miniature social feed.\n\nThis is an Operate surface. Sender, message text, and reply remain immediately scannable while the interface recedes. Telegram blue supplies recognition and action; SF Symbols, system materials, and native focus behavior keep the surface at home on macOS. Custom application artwork belongs in the menu bar, not inside the notch panel.",
+    "keyCharacteristics": ["True system glass with a cool near-black tint", "A fine highlight edge and restrained ambient shadow", "Deliberately tight information density", "Telegram blue used for action, unread state, and outgoing messages", "Name-and-text conversation content with no decorative identity furniture", "Privacy-preserving collapsed state"],
+    "rules": [
+      { "name": "The One Signal Rule", "body": "Telegram blue is the only routine chromatic accent; do not distribute chat-specific rainbow colors through the panel.", "section": "colors" },
+      { "name": "The Glass Must Be Real Rule", "body": "Begin with a native macOS material, then tint it. A flat opaque dark fill is not a substitute.", "section": "colors" },
+      { "name": "The Native Voice Rule", "body": "Use the Apple system family and SF Symbols; do not introduce a web font or ornamental display face.", "section": "typography" },
+      { "name": "The Content Wins Rule", "body": "Weight and opacity establish hierarchy. Avoid extra labels, timestamps, badges, or uppercase utility copy when name and message text are sufficient.", "section": "typography" },
+      { "name": "The Single Object Rule", "body": "Elevate the panel as one object. Do not give every row, control, or message its own drop shadow.", "section": "elevation" },
+      { "name": "The Screen-Edge Rule", "body": "Never round, inset, or detach the panel's top edge; it must remain visually continuous with the display cutout.", "section": "shapes" }
+    ],
+    "dos": ["Do preserve the physical notch as empty occlusion space.", "Do use native macOS materials, SF typography, SF Symbols, focus, keyboard, and accessibility behavior.", "Do reserve Telegram blue for meaningful action, unread state, links, sender emphasis, and outgoing messages.", "Do keep the working panel narrow, dense, and immediately dismissible.", "Do keep conversation rows and bubbles to name plus text.", "Do keep custom application artwork in the menu bar."],
+    "donts": ["Don't put contact avatars, timestamps, unread-count pills, reactions, attachment chrome, or decorative metadata into the notch panel.", "Don't expose a name, preview, or exact unread count in the collapsed state.", "Don't replace true system glass with a flat dark rectangle, heavy gradient, or generic frosted-card treatment.", "Don't introduce multicolor chat accents, ornamental type, or custom illustrations inside this Operate surface.", "Don't detach the panel from the screen edge or round its top corners.", "Don't add bounce-heavy, slow, or attention-seeking motion."]
+  }
+}
